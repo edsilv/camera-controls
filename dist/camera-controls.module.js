@@ -196,6 +196,7 @@ var CameraControls = (function (_super) {
         _this.minZoom = 0.01;
         _this.maxZoom = Infinity;
         _this.dampingFactor = 0.05;
+        _this.zoomLerpFactor = 0.1;
         _this.draggingDampingFactor = 0.25;
         _this.azimuthRotateSpeed = 1.0;
         _this.polarRotateSpeed = 1.0;
@@ -1189,7 +1190,7 @@ var CameraControls = (function (_super) {
         if (this._camera.zoom !== this._zoom) {
             if (approxZero(zoomDelta))
                 this._zoom = this._zoomEnd;
-            this._camera.zoom = this._zoom;
+            this._camera.zoom = THREE.MathUtils.lerp(this._camera.zoom, this._zoom, this.zoomLerpFactor);
             this._camera.updateProjectionMatrix();
             this._updateNearPlaneCorners();
             this._needsUpdate = true;
@@ -1221,6 +1222,7 @@ var CameraControls = (function (_super) {
             minAzimuthAngle: infinityToMaxNumber(this.minAzimuthAngle),
             maxAzimuthAngle: infinityToMaxNumber(this.maxAzimuthAngle),
             dampingFactor: this.dampingFactor,
+            zoomLerpFactor: this.zoomLerpFactor,
             draggingDampingFactor: this.draggingDampingFactor,
             dollySpeed: this.dollySpeed,
             truckSpeed: this.truckSpeed,
@@ -1250,6 +1252,7 @@ var CameraControls = (function (_super) {
         this.minAzimuthAngle = maxNumberToInfinity(obj.minAzimuthAngle);
         this.maxAzimuthAngle = maxNumberToInfinity(obj.maxAzimuthAngle);
         this.dampingFactor = obj.dampingFactor;
+        this.zoomLerpFactor = obj.zoomLerpFactor;
         this.draggingDampingFactor = obj.draggingDampingFactor;
         this.dollySpeed = obj.dollySpeed;
         this.truckSpeed = obj.truckSpeed;

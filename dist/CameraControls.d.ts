@@ -1,8 +1,10 @@
 import * as _THREE from 'three';
-import { ACTION, PointerInput, MouseButtons, Touches, FitToOptions, CameraControlsEventMap } from './types';
+import { THREESubset, ACTION, PointerInput, MouseButtons, Touches, FitToOptions, CameraControlsEventMap } from './types';
 import { EventDispatcher } from './EventDispatcher';
 export declare class CameraControls extends EventDispatcher {
-    static install(libs: any): void;
+    static install(libs: {
+        THREE: THREESubset;
+    }): void;
     static readonly ACTION: Readonly<typeof ACTION>;
     minPolarAngle: number;
     maxPolarAngle: number;
@@ -14,6 +16,7 @@ export declare class CameraControls extends EventDispatcher {
     minZoom: number;
     maxZoom: number;
     dampingFactor: number;
+    zoomLerpFactor: number;
     draggingDampingFactor: number;
     azimuthRotateSpeed: number;
     polarRotateSpeed: number;
